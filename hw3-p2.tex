@@ -5,3 +5,59 @@ $$
   u(r, 0) = 0, u_t(r, 0) = 0
 \end{cases}
 $$
+
+Again we start with Duhamel's Principle, and define $v$ s.t. it satisfies the following system:
+$$
+\begin{cases}
+  v_{tt}(x, t; s) = \Delta v(x, t; s) & t > 0\\
+  v(x, 0; s) = 0, v_t(x, 0; s) = f(|x|, s)
+\end{cases}
+$$
+
+Then since $v$ is three-dimensional, it is solved with Kirchoff's Formula:
+$$
+v(x, t; s) = \avgint_{\partial B_t(x)} t f(|y|; s) \dd{S(y)}
+$$
+
+Next, we consider the intersection of $\partial B_t(x)$ with $\partial B_r(0)$ for some $r \in [\max(|x| - t, t - |x|), |x| + t]$.
+This intersection is a circle.
+Since $f$ is radially symmetric, it's constant over this circle.
+So we can rewrite the previous integral by computing the derivative of the area of the spherical cap
+with respect to the distance $r$ of its boundary circle to the origin.
+Recall that the area of the spherical cap is given by $\pi (a^2 + h^2)$,
+where $a$ is the (minimum) distance from the $Ox_0$ axis to the boundary circle,
+and $h$ is the distance from the plane containing the boundary circle to the axis' intersection with the spherical cap.
+On the intersection of these two spheres, we have two cases: $t < |x_0|$ and $t > |x_0|$.
+For the former, we compute
+\begin{align*}
+  t^2 = &(t - h)^2 + a^2 \rightarrow a^2 = t^2 - (t - h)^2\\
+  r^2 = &(h + ||x_0| - t|)^2 + a^2 = (h + ||x_0| - t|)^2 + t^2 - (t - h)^2\\
+      = &||x_0| - t|^2 + 2 h ||x_0| - t| + 2 t h\\
+  h = &\frac{r^2 - ||x_0| - t|^2}{2 ||x_0| - t| + 2 t} = \frac{r^2 - ||x_0| - t|^2}{|x_0|}\\
+  A = &\pi (t^2 - (t - h)^2 + h^2) = 2 \pi h t = 2 \pi t \frac{r^2 - ||x_0| - t|^2}{2 |x_0|}
+\end{align*}
+For the latter, we compute
+\begin{align*}
+  a^2 = &t^2 - (t - h)^2\\
+  r^2 = &(t - |x_0| - h)^2 + a^2 = (t - |x_0| - h)^2 + 2 t h - h^2\\
+      = &2 |x_0| h + t^2 + |x_0|^2 - 2 t |x_0|\\
+  h = &\frac{r^2 - |x_0|^2 + 2 t |x_0| - t^2}{2 |x_0|}\\
+  A = &2 \pi h t = 2 \pi t \frac{r^2 - |x_0|^2 + 2 t |x_0| - t^2}{2 |x_0|}
+\end{align*}
+
+Then
+$$
+dS(y) = \frac{t r}{|x_0|} \dd{\theta} \dr
+$$
+
+Since $f$ is constant w.r.t. $\theta$, the surface integral simplifies to
+$$
+v(x, t; s) = \frac{1}{\alpha_3 t^2} \int \limits_{r = ||x| - t|}^{|x| + t} \frac{\alpha_2 t r}{|x|} f(r; s) \dr
+           = \frac{1}{2 t |x|} \int \limits_{r = ||x| - t|}^{|x| + t} r f(r; s) \dr
+$$
+
+Then, by Duhmamel's Principle, we have
+$$
+u(x, t) = \int \limits_{s=0}^t v(x, t; s) \ds
+  = \frac{1}{2 t |x|} \int \limits_{s=0}^t \int \limits_{r = ||x| - t|}^{|x| + t} r f(r; s) \dr \ds
+$$

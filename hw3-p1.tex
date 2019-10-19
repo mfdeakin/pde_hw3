@@ -5,3 +5,24 @@ $$
   u(x, 0) = 0, u_t(x, 0) = 0
 \end{cases}
 $$
+
+We apply Duhamel's principle.
+Define $v(x, t; s)$ s.t. it satisfies the following
+$$
+\begin{cases}
+  v_{tt}(x, t; s) - \Delta v(x, t; s) = 0\\
+  v(x, s; s) = 0\\
+  v_t(x, s; s) = f(x, s)
+\end{cases}
+$$
+Applying Poisson's formula to compute a solution gives
+$$
+v(x, t; s) =\frac{1}{2} \avgint_{B_t(x)} \frac{t^2 f(y; s)}{\sqrt{t^2 - |y - x|^2}} \dy
+$$
+
+Then by Duhamel's principle
+$$
+u(x, t) = \int_0^t v(x, t; s) \ds = \frac{1}{2} \int_0^t \avgint_{B_t(x)} \frac{t^2 f(y; s)}{\sqrt{t^2 - |y - x|^2}} \dy \ds
+$$
+
+Simplifying beyond this doesn't seem possible...
