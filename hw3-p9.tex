@@ -1,3 +1,50 @@
-Let $R^+ = \set{x \in R; x > 0}$ and assume that $u \in W^{2, p}(R^+)$.
-Define the symmetric extension of $u$ by setting $Eu(x) = u(|x|)$.
-Prove that $Eu \in W^{1, p}(R)$ but $Eu \notin W^{2, p}(R)$ in general.
+Let $\reals^+ = \set{x \in \reals; x > 0}$ and assume that $u \in W^{2, p}(\reals^+)$.
+Define the symmetric extension of $u$ by setting $E u(x) = u(|x|)$.
+Prove that $E u \in W^{1, p}(\reals)$ but $E u \notin W^{2, p}(\reals)$ in general.
+
+$E u(x) = u(|x|)$
+Then $||E u||_{L^p(\reals)} = \int_0^\infty |u(x)|^p \dx + \int_0^\infty |u(x)|^p \dx = 2 ||u||_{L^p(\reals)}$.
+Next, we show that $E u$ has a weak derivative by some substitions and integration by parts.
+\begin{align*}
+  \int_{-\infty}^{\infty} E u(x) \phi'(x) \dx = &\int_{-\infty}^{0} u(-x) \phi'(x) \dx + \int_{0}^{\infty} u(x) \phi'(x) \dx\\
+                                           = &-\int_{\infty}^{0} u(x) \phi'(-x) \dx + \int_{0}^{\infty} u(x) \phi'(x) \dx\\
+                                           = &\int_{0}^{\infty} u(x) (\phi'(x) + \phi'(-x)) \dx
+                                           =  -\int_{0}^{\infty} u'(x) (\phi(x) + \phi(-x)) \dx\\
+                                           = &-\int_{-\infty}^{0} u'(-x) \phi(x) \dx
+                                              -\int_{0}^{\infty} u'(x) \phi(x) \dx
+                                           = -\int_{-\infty}^{\infty} [D E u(x)] \phi(x) \dx
+\end{align*}
+Next, we show that $||D E u||_{L^p(\reals)}$ is finite, thus proving that $E u \in W^{2, p}$
+\begin{align*}
+  \int_{-\infty}^{\infty} |D E u|^p \dx = &\int_{-\infty}^0 |D [u(-x)]|^p \dx + \int_{0}^\infty |D [u(x)]|^p \dx\\
+                                     = &\int_{-\infty}^0 |D u(-x)|^p \dx + ||D u||_{L^p(R_+)}\\
+                                     = &2 ||D u||_{L^p(R_+)}
+\end{align*}
+Thus, $||E u||_{W^{1, p}(\reals)}$ is finite, completing the proof.a
+
+Next, we give a counter-example $u \in W^{2, p}(\reals^+)$ with $E u \notin W^{2, p}(\reals)$.
+Consider $u(x) = e^{-x}$.
+Then $E u(x) = e^{-|x|}$, and
+\begin{align*}
+D E u(x) = 
+\begin{cases}
+  -e^{-x} & x > 0\\
+  e^{x} & x < 0
+\end{cases}
+\end{align*}
+Suppose that this has a weak derivative.
+Then integrating by parts gives
+\begin{align*}
+\int_{-\infty}^{\infty} D E u(x) \phi'(x) = &\int_{-\infty}^{\infty} v \phi(x) \dx
+                                       = \int_{-\infty}^{0} e^{x} \phi'(x) \dx
+                                         - \int_{0}^{\infty} e^{-x} \phi'(x) \dx\\
+                                       = &\int_{0}^{\infty} e^{-x} \phi'(-x) \dx
+                                         + \phi(0) + \int_{0}^{\infty} e^{-x} \phi(x) \dx\\
+                                       = &\phi(0) - \int_{0}^{\infty} e^{-x} \phi(-x) \dx
+                                         + \phi(0) + \int_{0}^{\infty} e^{-x} \phi(x) \dx\\
+                                       = &2 \phi(0) + \int_{0}^{\infty} e^{-x} (\phi(x) - \phi(-x)) \dx
+\end{align*}
+Consider a monotonic bounded sequence $\phi_m$ with $\phi_m(0) = 1$, $\phi_m(x) = \phi_m(-x)$,
+and $\phi_m(x) \rightarrow 0$ when $x \neq 0$,
+and we have a contradiction as then by the monotone convergence theorem, $0 = \lim \int_{-\infty}^{\infty} v \phi_m \dx \neq 2$.
+Thus, $E u$ does not necessarily have 2 weak derivatives.
