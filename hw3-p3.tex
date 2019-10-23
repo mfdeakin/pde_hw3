@@ -10,9 +10,64 @@ Find the first order and second order weak derivatives for the following functio
   \end{cases}
   $$
 
+  The first order weak derivative is
+  $$
+  Du(x) =
+  \begin{cases}
+    1 & -1 < x < 0\\
+    -1 & 0 < x < 1\\
+    0 & \text{otherwise}
+  \end{cases}
+  $$
+  The second order weak derivative doesn't exist.
+  We can prove this by working backwards and using the uniqueness of the weak derivative to prove our claim.
+  We need to show that $\int_R Du \phi \dx = -\int_R u \phi' \dx$ for any $\phi \in C_C^\infty(R)$.
+  To do so, we simply note that $\deriv{}{x}(1 + x) = 1$ and $\deriv{}{x}(1 - x) = -1$,
+  which is nice since we need these to be $0$ at the $-1$ and $1$, respectively, while having the same value at $0$.
+  Then integrating by parts results in:
+  \begin{align*}
+    \int Du(x) \phi(x) = &\int_{-1}^0 \phi(x) \dx - \int_0^1 \phi(x) \dx\\
+                       = &\phi(x) (1 + x) \bigg\rvert_{x=-1}^{0} - \int_{-1}^0 (1 + x) \phi'(x)
+                          + \phi(x) (1 - x) \bigg\rvert_{x=0}^{1} - \int_0^1 (1 - x) \phi'(x) \dx\\
+                       = &\phi(0) - \int_{-1}^0 (1 + x) \phi'(x) - \phi(0) - \int_0^1 (1 - x) \phi'(x) \dx\\
+                       = &-\int_{-1}^0 (1 + x) \phi'(x) - \int_0^1 (1 - x) \phi'(x) \dx
+                       = -\int_{-1}^0 (1 - |x|) \phi'(x) - \int_0^1 (1 - |x|) \phi'(x) \dx\\
+                       = &-\int_{-1}^1 (1 - |x|) \phi'(x)
+  \end{align*}
+
+  Thus, $Du$ is the weak derivative of $u$.
+
 \item
   $$
   u(x) = |\sin(x)|
   $$
+
+  First we rewrite this in cases:
+  $$
+  u(x) =
+  \begin{cases}
+    \sin(x) & k \pi < x < (k + 1) \pi\\
+    -\sin(x) & (k + 1) \pi < x < (k + 2) \pi
+  \end{cases}
+  $$
+
+  Then the first order weak derivative is
+  $$
+  Du(x) =
+  \begin{cases}
+    \cos(x) & k \pi < x < (k + 1) \pi\\
+    -\cos(x) & (k + 1) \pi < x < (k + 2) \pi
+  \end{cases}
+  $$
+
+  The second order weak derivative is
+  $$
+  D^2u(x) =
+  \begin{cases}
+    -\sin(x) & k \pi < x < (k + 1) \pi\\
+    \sin(x) & (k + 1) \pi < x < (k + 2) \pi
+  \end{cases}
+  $$
+  which is just $-|\sin(x)| = -u(x)$
 
 \end{enumerate}
