@@ -1,2 +1,45 @@
 Let $1 < p < \infty$. Show that if $u, v \in W^{1, p}(\Omega)$, then $\max(u, v), \min(u, v) \in W^{1, p}(\Omega)$.
 Show that this is not true for $W^{2, p}(\Omega)$.
+
+$u, v \in W^{1, p}(\Omega)$.
+First, assuming $D^{x_i} \max(u, v)$ exists, we have $\max(u, v) \in W^{1,p}(\Omega)$, since
+\begin{align*}
+  \int_\Omega |\max(u, v)|^p + |D^{x_i} \max(u, v)|^p \dx \leq &\int_\Omega |\max(u, v)|^p + \max(|D^{x_i} u|, |D^{x_i} v|)^p \dx\\
+  \leq &\int_\Omega |u|^p + |v|^p + |D^{x_i} u|^p + |D^{x_i} v|^p \dx
+\end{align*}
+is a finite upper bound to these quantities.
+By the same argument, we have  $\max(u, v) \in W^{1,p}(\Omega)$.
+
+Next we need to show that these have weak derivatives.
+Consider $\int_\Omega \max(u, v) D^{x_i} \phi \dx$ for any $k \leq p$.
+Because $u$ and $v$ have weak derivatives up to order $p$,
+we know that they are continuous and differentiable almost everywhere, and thus, so is $u - v$.
+Then we can partition $\Omega$ into countably many disjoint neighborhoods
+$\set{N^u_i}$ in which $u - v > 0$ and $\set{N^v_j}$ in which $u - v < 0$,
+with $\closure{\Omega} = \closure{(\cup_i N^u_i \cup_j N^v_j)}$.
+Then we can rewrite our integral
+\begin{align*}
+\int_\Omega \max(u, v) D^{x_k} \phi \dx = &\sum_i \int_{N^u_i} \max(u, v) D^{x_k} \phi \dx
+                                         + \sum_j \int_{N^v_i} \max(u, v) D^{x_k} \phi \dx\\
+                                      = &\sum_i \int_{N^u_i} u D^{x_k} \phi \dx
+                                         + \sum_j \int_{N^v_i} v D^{x_k} \phi \dx
+\end{align*}
+and noting that since $u$ and $v$ have weak derivatives in $\Omega$,
+and therefore in any neighborhood contained in $\Omega$, we have
+\begin{align*}
+\int_\Omega \max(u, v) D^{x_k} \phi \dx
+  = &-\left(\sum_i \int_{N^u_i} D^{x_k} u \phi \dx
+            + \sum_j \int_{N^v_j}  D^{x_k} v \phi \dx\right)\\
+  = &-\left(\sum_i \int_{N^u_i} D^{x_k} \max(u, v) \phi \dx
+            + \sum_j \int_{N^v_j}  D^{x_k} \max(u, v) \phi \dx\right)\\
+  = &-\int_{\Omega} D^{x_k} \max(u, v) \phi \dx
+\end{align*}
+thus proving our claim that $\max(u, v)$ has weak derivatives up to order $k$.
+
+Next we show that for $W^{2,p}(\Omega)$, the previous does not necessarily hold.
+Consider $\Omega = (-1, 1)$ with
+\begin{align*}
+  u = &x\\
+  v = &-x
+\end{align*}
+Clearly, $\max(u, v) = |x|$, which isn't in $W^{2, p}(\Omega)$.
