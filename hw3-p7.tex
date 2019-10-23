@@ -1,4 +1,94 @@
-Let $\eta(t) = 1$ for $t \leq 0$ and $\eta(t) = 0$ for $t > 1$.
-Let $f \in W^{k, p}(R^n)$ and $f_k = f_\eta(|x| - k)$.
-Show that $||f_k - f||_{W^{k, p}} \rightarrow 0$ as $k \rightarrow \infty$.
+Let $\eta \in C^p(\Omega)$ with $\eta(t) = 1$ for $t \leq 0$ and $\eta(t) = 0$ for $t > 1$.
+Let $f \in W^{k, p}(R^n)$ and $f_m = f(x) \eta(|x| - m)$.
+Show that $||f_m - f||_{W^{k, p}} \rightarrow 0$ as $m \rightarrow \infty$.
 As a consequence show that $W^{k, p}(R^n) = W_0^{k, p}(R^n)$.
+
+We want to show that
+\begin{align*}
+0 = &\lim_{k \rightarrow \infty} \sum_{|\alpha| \leq p} \int_{x \in R^n} \left| D^\alpha (f(x) - f(x) \eta(|x| - k)) \right|^p \dx\\
+  = &\sum_{|\alpha| \leq p} \lim_{k \rightarrow \infty} \int_{x \in B_k^C} \left| D^\alpha f(x) \right|^p \dx
+\end{align*}
+
+For $k = 0$, we can just apply the monotone convergence theorem,
+since $|f - f_m|^p$ converges monotonically to $0$, showing that
+$\limitto{m}{\infty} \int_{R^n} |f - f_m|^p \dx = \int_{R^n} \limitto{m}{\infty} |f - f_m|^p \dx = 0$.
+For $p \geq 1$, we need to consider $\int_{R^n} |D^\alpha (f - f_m)|^p \dx$.
+Breaking this into three integrals, we have
+\begin{align*}
+||f - f_m||_{W^{k, p}} = \sum_{|\alpha| = k} &\int_{|x| < m} [D^\alpha 0]^p \dx\\
+                                        &+ \int_{m < |x| < m + 1} [D^\alpha [f(x) (1 - \eta(|x| - m))]]^p \dx\\
+                                        &+ \int_{m + 1 < |x|} [D^\alpha f(x)]^p \dx\\
+                     = \sum_{|\alpha| = k} &\int_{m < |x| < m + 1} [D^\alpha [f(x) (1 - \eta(|x| - m))]]^p \dx\\
+                                        &+ \int_{R^n} [D^\alpha f(x)]^p \dx - \int_{|x| < m + 1} [D^\alpha f(x)]^p \dx
+\end{align*}
+
+We note that $\limitto{m}{\infty} \int_{R^n} [D^\alpha f(x)]^p \dx - \int_{|x| < m + 1} [D^\alpha f(x)]^p \dx = 0$,
+since $f(x) \in W^{k, p}(R^n)$.
+Then we're left with
+\begin{align*}
+\limitto{m}{\infty} ||f - f_m||_{W^{k, p}}
+  = \sum_{|\alpha| = k} \limitto{m}{\infty} \int_{m < |x| < m + 1} [D^\alpha [f(x) (1 - \eta(|x| - m))]]^p \dx
+\end{align*}
+
+We just need to show that this goes to zero.
+Let $S_\alpha = \set{(\beta, \gamma) | \alpha_i = \beta_i + \gamma_i, \beta_i, \gamma_i \geq 0}$
+Then we can rewrite the weak derivative above with the product rule:
+$$
+D^\alpha [f(x) (1 - \eta(|x| - m))]
+  = \sum_{(\beta, \gamma) \in S_\alpha} [D^\beta f(x)] D^{\gamma}(1 - \eta(|x| - m)) \dx
+  \leq C \sum_{(\beta, \gamma) \in S_\alpha} D^\beta f(x)
+$$
+
+Then
+\begin{align*}
+\limitto{m}{\infty} ||f - f_m||_{W^{k, p}}
+  \leq &\limitto{m}{\infty} \sum_{|\alpha| = k} \int_{m < |x| < m + 1} [D^\alpha [f(x) (1 - \eta(|x| - m))]]^p \dx\\
+  \leq &\limitto{m}{\infty} \sum_{|\alpha| = k} \int_{m < |x|} C D^\alpha f(x) \dx = 0
+\end{align*}
+completing our proof.
+
+Next, we note that $f_m \in W_{0}^{k, p}(R^n)$, so
+$\forall \epsilon > 0, \exists g_i \in C_c^\infty(R^n)$ s.t. $|f_m - g_i| < \frac{\epsilon}{2}$,
+and also we can choose $M \in N$ s.t. $\forall m \geq M$, $|f_m - f| < \frac{\epsilon}{2}$.
+Through the triangle inequality we then have $g_i \rightarrow f$.
+Thus, $f \in W_0^{k, p}(R^n)$.
+Since this is true for any $f \in W^{k, p}(R^n)$, and since $W_0^{k, p}(R^n) \subset W^{k, p}(R^n)$,
+we have $W^{k, p}(R^n) = W_0^{k, p}(R^n)$.
+
+%% Then we note that since $f \in W^{k, p}(R^n)$, 
+%% $S = \sum_{|\alpha| \leq p} \int_{R^n} \left| D^\alpha f(x) \right|^p \dx$ is finite.
+%% % See proposition 1.12 of Stein and Shakarchi's Real Analysis text; pg 65
+%% % Monotone convergence theorem FTW!!!
+%% By the Fatou's theorem, since $\lim_{k \rightarrow \infty} |D^\alpha f_k| = |D^\alpha f|$,
+%% we have $\int_{R^n} |D^\alpha f| \dx \leq \liminf_{k \rightarrow \infty} \int_{R^n} |D^\alpha f_k| \dx$.
+
+%% $$
+%% \limitto{N}{\infty} \int_{R^n} |D^\alpha f_N|^p \dx = \int_{R^n} \limitto{N}{\infty} |D^\alpha f_N|^p \dx = \int_{R^n} |D^\alpha f|^p \dx
+%% $$
+%% Then
+%% $$
+%% \limitto{N}{\infty} \int_{R^n} |f - f_N|^p \dx = \int_{R^n} \limitto{N}{\infty} |f_N|^p \dx = \int_{R^n} |f|^p \dx
+%% $$
+
+
+%% So for any $\epsilon \geq 0$, consider $\Omega_\epsilon = \set{x : |f(x)|^p > \epsilon}$.
+%% Then
+%% \begin{align*}
+%%   S = &\int_{\Omega_\epsilon} |f(x)|^p \dx + \int_{\Omega_\epsilon^C} |f(x)|^p \dx
+%%     \geq |\Omega_\epsilon| \epsilon + \int_{\Omega_\epsilon^C} |f(x)|^p \dx\\
+%%   0 \leq &\int_{\Omega_{\epsilon}^C} |f(x)|^p \dx \leq S - |\Omega_\epsilon| \epsilon
+%% \end{align*}
+%% Thus, $|\Omega_\epsilon|$ is finite.
+%% Next, write $\Omega_\epsilon = \bigcup_i \Omega_\epsilon^i$, where $\set{\Omega_\epsilon^i}$
+%% consists of disconnected sets.
+
+%% We have $|\Omega_\epsilon| = \sum_i |\Omega_\epsilon^i|$, showing this is an absolutely convergent sequence.
+%% Thus, for all $\delta > 0$, we can choose $N > 0$ s.t. $|\Omega_\epsilon| - \sum_i^N |\Omega_\epsilon^i| < \delta$,
+%% and
+%% \begin{align*}
+%%   \int_{\Omega_\epsilon} |f(x)|^p \dx \leq &\epsilon \delta + \sum_i^N \int_{\Omega_\epsilon^i} |f(x)|^p \dx\\
+%%   S = &\int_{\Omega_\epsilon} |f(x)|^p \dx + \int_{\Omega_\epsilon^C} |f(x)|^p \dx
+%%     \leq \epsilon \delta + \sum_i^N \int_{\Omega_\epsilon^i} |f(x)|^p \dx + \int_{\Omega_\epsilon^C} |f(x)|^p \dx\\
+%%     \leq &\epsilon \delta + \sum_i^N \int_{\Omega_\epsilon^i} |f(x)|^p \dx + S - |\Omega_\epsilon| \epsilon\\
+%%   |\Omega_\epsilon| \epsilon \leq &\sum_i^N \int_{\Omega_\epsilon^i} |f(x)|^p \dx
+%% \end{align*}

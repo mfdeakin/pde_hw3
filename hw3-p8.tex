@@ -1,5 +1,52 @@
-Let $u \in C^\infty(\closure{R}_+^n)$. Extend $u$ to $Eu$ on $R^n$ such that
-$$
-Eu = u, x \in R_+^n; Eu \in C^{3, 1}(R^n) \cap W^{4, p}(R^n); ||Eu||_{W^{4, p}} \leq ||u||_{W^{4, p}}
-$$
+Let $u \in C^\infty(\closure{R}_+^n)$. Extend $u$ to $E u$ on $R^n$ such that
+\begin{align*}
+E u = &u, x \in R_+^n\\
+E u \in &C^{3, 1}(R^n) \cap W^{4, p}(R^n)\\
+||E u||_{W^{4, p}} \leq &C ||u||_{W^{4, p}}
+\end{align*}
 Here $R_+^n = \set{(x', x_n); x_n > 0}$ and $C^{3, 1} = \set{u \in C^3, D^\alpha u \text{ is Lipschitz, } |\alpha| = 3}$
+
+First we assume the form
+\begin{align*}
+E u(x', x_n) =
+\begin{cases}
+u(x', x_n) & x_n \geq 0\\
+c_0 u(x', -x_n) + c_1 u(x', -x_n / 2) + c_2 u(x', -x_n / 4) + c_3 u(x', -x_n / 8) + c_4 u(x', -x_n / 16) & x_n \leq 0
+\end{cases}
+\end{align*}
+while requiring $c_0 + c_1 + c_2 + c_3 + c_4 = 1$.
+This clearly satisfies $E u(x', x_n) = u(x', x_n)$ when $x_n \geq 0$, and is continuous since
+$\limitto{x_n}{0} E u(x', x_n) = u(x', 0)$.
+We also have $E u \in C^\infty(R_-^n)$, and just need to show that $\limitto{x_n}{0} D^{x_n^k} E u$ exists for $k \leq 3$.
+
+Then when $x_n > 0$, we have $D^{x_n^k} E u(x', x_n) = D^{x_n^k} u(x', x_n)$
+For $x_n < 0$, we have
+\begin{align*}
+\limitto{x_n}{0, x_n < 0} D^{x_n^k} E u(x', x_n) =
+  \limitto{x_n}{0} &(-1)^k c_0 D^{x_n^k} u(x', -x_n) + \left(\frac{-1}{2}\right)^k c_1 D^{x_n^k} u(x', -x_n / 2)\\
+  &+ \left( \frac{-1}{4} \right)^k c_2 D^{x_n} u(x', -x_n / 4) + \left( \frac{-1}{8} \right)^k c_3 D^{x_n} u(x', -x_n / 8)\\
+  &+ \left( \frac{-1}{16} \right)^k c_4 D^{x_n} u(x', -x_n / 16)\\
+  = &\left[ (-1)^k c_0 + \left(\frac{-1}{2}\right)^k c_1 + \left( \frac{-1}{4} \right)^k c_2
+     + \left( \frac{-1}{8} \right)^k c_3 + \left( \frac{-1}{16} \right)^k c_4 \right] D^{x_n} u(x', 0)
+\end{align*}
+Then for $k \in \set{0, 1, 2, 3, 4}$ we need
+\begin{align*}
+  1 = (-1)^k c_0 + \left(\frac{-1}{2}\right)^k c_1 + \left( \frac{-1}{4} \right)^k c_2
+      + \left( \frac{-1}{8} \right)^k c_3 + \left( \frac{-1}{16} \right)^k c_4
+\end{align*}
+This is a nonsingular linear system; it has a unique solution of $c_0 = \frac{51}{7}$, $c_1 = -\frac{1020}{7}$,
+$c_2 = -816$, $c_3 = -\frac{10880}{7}$, $c_4 = \frac{6144}{7}$.
+This extension has 4 derivatives by construction, and thus, has at least 3 continuous derivatives, so it's in $C^{3, 1}$.
+
+Next, we show that $||E u||_{W^{4, p}} \leq C ||u||_{W^{4, p}}$.
+\begin{align*}
+  \sum_{|\alpha| \leq 4} \int_{R^n} |D^\alpha E u|^p \dx
+    = &\sum_{|\alpha| \leq 4} \int_{R^{n - 1} \times (0, \infty)} |D^\alpha u|^p \dx
+      + \int_{R^{n - 1} \times (-\infty, 0)} |D^\alpha E u|^p \dx\\
+    = &||u||_{W^{4, p}} + \sum_{|\alpha| \leq 4} \int_{R^{n - 1} \times (-\infty, 0)} |D^\alpha E u|^p \dx\\
+    = &||u||_{W^{4, p}} + \sum_{|\alpha| \leq 4} \int_{R^{n - 1} \times (-\infty, 0)}
+                          \left| D^\alpha \sum_{i = 0}^4 c_i u(x_1, x_2, \ldots, x_{n - 1}, -x_n / 2^i) \right|^p \dx\\
+ \leq &||u||_{W^{4, p}} + \sum_{|\alpha| \leq 4} \int_{R^{n - 1} \times (0, \infty)}
+                          C \left| \sum_{i = 0}^4 D^\alpha c_i u(x_1, x_2, \ldots, x_{n - 1}, x_n) \right|^p \dx
+ \leq C ||u||_{W^{4, p}}
+\end{align*}
