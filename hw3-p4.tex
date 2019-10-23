@@ -3,3 +3,41 @@ $$
 Du = 0, \text{ a.e. in } (a, b)
 $$
 Prove that $u$ is constant a.e. in $(a, b)$
+
+First we note that since $\int_a^b Du \phi \dx = -\int_a^b u \phi' \dx$ for any $\phi \in C^\infty_c((a, b))$,
+we have $\int_a^b u \phi' \dx = 0$.
+Next, we assume that $u$ is not constant.
+Then since $u$ is continuous and almost everywhere differentiable (as it has a weak derivative),
+there must be two disconnected neighborhoods $N_1$ and $N_2$ where $|u(N_1)| \cap |u(N_2)| = \emptyset$.
+WLOG, let $\inf_{N_1} |u| \leq \sup_{N_1} |u| < \inf_{N_2} |u| \leq \sup_{N_2} |u|$.
+Next, consider $\phi_n$ s.t.
+\begin{align*}
+  \phi_n'(x) =
+  \begin{cases}
+    \sqrt{n} e^{-\frac{1}{1 - n |x - x_1|^2}} & |x - x_1| < \frac{1}{\sqrt{n}}\\
+    \sqrt{n} e^{-\frac{1}{1 - n |x - x_2|^2}} & |x - x_2| < \frac{1}{\sqrt{n}}\\
+    0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+with $x_1 \in N_1, x_2 \in N_2$ (this is continuous, and thus integrable, so $\phi_n$ exists and $\phi_n \in C^\infty_C$).
+% integral_(-1/sqrt(2))^(1/sqrt(2)) sqrt(2) e^(-1/(1 - 2 x^2)) dx ≈ 0.443993816168079437823048921170552663761201789045697497307484553947040996939333945294846408031424708284300177578991350408812926995038438567308381450581...
+Then we can choose $N$ s.t. for all $n \geq N$, $\left(x_1 - \frac{1}{n}, x_1 + \frac{1}{n}\right) \subset N_1$
+and $\left(x_2 - \frac{1}{n}, x_2 + \frac{1}{n}\right) \subset N_2$;
+we assume we are using such an $n$ for the rest of the proof.
+We also note that $\int_{N_1} \nthderiv{}{x}{k} \phi_n(x) \dx = \int_{N_2} \nthderiv{}{x}{k} \phi_m(x) \dx$
+for distinct $n$ and $m$; this can be shown by a simple substitution.
+
+Then
+\begin{align*}
+  0 = \int_a^b u \phi_n' \dx = &\int_{x_1 - 1/n}^{x_1 + 1/n} u \phi_n' \dx + \int_{x_2 - 1/n}^{x_2 + 1/n} u \phi_n' \dx\\
+  -\int_{x_1 - 1/n}^{x_1 + 1/n} u \phi_n' \dx = &\int_{x_2 - 1/n}^{x_2 + 1/n} u \phi_n' \dx
+\end{align*}
+But
+\begin{align*}
+  -\int_{x_1 - 1/n}^{x_1 + 1/n} u \phi_n' \dx = &\int_{x_2 - 1/n}^{x_2 + 1/n} u \phi_n' \dx\\
+  C = &\int_{x_1 - 1/n}^{x_1 + 1/n} \phi_m' \dx = \int_{x_2 - 1/n}^{x_2 + 1/n} \phi_m' \dx\\
+  -C \sup_{N_1} u \leq &-\int_{x_1 - 1/n}^{x_1 + 1/n} u \phi_n' \dx \leq -C \inf_{N_1} u\\
+  C \inf_{N_2} u \leq &\int_{x_2 - 1/n}^{x_2 + 1/n} u \phi_n' \dx \leq C \sup_{N_2} u\\
+\end{align*}
+Since we have $(-C \sup_{N_1} u, -C \inf_{N_1} u) \cap (C \inf_{N_1} u, C \sup_{N_2} u) = \emptyset$,
+this is a with a contradiction, and thus, $u$ must be constant.
