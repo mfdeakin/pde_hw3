@@ -2,7 +2,7 @@ Consider the following function
 $$
 u(x) = \frac{1}{|x|^\gamma}
 $$
-in $\Omega = B_1(0)$.
+in $\domain = B_1(0)$.
 
 Show that if $\gamma + 1 < n$, the weak derivatives are given by
 $$
@@ -13,4 +13,77 @@ $$
 \int u \partial_j \phi = \int \phi \gamma \frac{x_j}{|x|^{\gamma + 2}}
 $$
 
-Find the condition on $\gamma$ s.t. $u \in W^{1, p}$ or $u \in W^{2, p}$
+Find the condition on $\gamma$ s.t. $u \in W^{1, p}$ and $u \in W^{2, p}$
+
+For $u \in W^{1, p}$, we just follow Evans' example 3.
+This comes out to $\gamma < \frac{n - p}{p}$.
+
+First we note that $u$ is smooth away from $0$, with
+$u_{x_i}(x) = \frac{-\gamma x_i}{|x|^{\gamma + 2}}$, so
+$|D u(x)| = \frac{\gamma}{|x|^{\gamma + 1}}$
+for any distance at least $\epsilon > 0$ from the origin.
+
+Then, for any $\phi \in C^\infty_C(\domain)$, the weak derivative $v$ satisfies
+\begin{align*}
+  \int_{\domain} u \phi_{x_i} \dx = &-\int_{\domain} v \phi \dx\\
+  \int_{\epsilon < |x| < 1} u \phi_{x_i} \dx = &-\int_{\epsilon < |x| < 1} v \phi \dx
+\end{align*}
+Integrating by parts gives
+\begin{align*}
+  \int_{\epsilon < |x| < 1} u \phi_{x_i} \dx = &\int_{\bndry{B_\epsilon(0)}} u \phi \nu^i \dd{S}
+                                        - \int_{\epsilon < |x| < 1} u_{x_i} \phi \dx
+\end{align*}
+where $\nu$ is the inward normal of $\bndry{B_\epsilon(0)}$.
+
+Since $u$ and $\phi$ are bounded on the boundary, we have
+\begin{align*}
+\left| \int_{\bndry{B_\epsilon(0)}} u \phi \nu^i \dd{S} \right|
+  \leq &\int_{\bndry{B_\epsilon(0)}} \epsilon^{-\gamma} \dd{S} \leq C \epsilon^{n - 1 - \alpha}\\
+  \leq &||\phi||_{L^\infty} \int_{\bndry{B_\epsilon}} \epsilon^{-\gamma} \dd{S} \leq C \epsilon^{n - 1 - \alpha}
+\end{align*}
+This goes to $0$ as $\epsilon \rightarrow 0$ if $n - 1 - \alpha > 0$.
+
+Then
+\begin{align*}
+  \limitto{\epsilon}{0} \int_{\epsilon < |x| < 1} u \phi_{x_i} \dx
+    = &\limitto{\epsilon}{0} -\int_{\epsilon < |x| < 1} u_{x_i} \phi \dx\\
+  \int_{B_1(0)} u \phi_{x_i} \dx = &\int_{|x| < \epsilon} u \phi_{x_i} \dx + \int_{\epsilon < |x| < 1} u \phi_{x_i} \dx\\
+    = &\limitto{\epsilon}{0} \int_{|x| < \epsilon} u \phi_{x_i} \dx - \int_{\epsilon < |x| < 1} u_{x_i} \phi \dx\\
+    = &\limitto{\epsilon}{0} -\int_{\epsilon < |x| < 1} u_{x_i} \phi \dx
+\end{align*}
+proving that this weak derivative works over the entire domain excluding $0$ when $\gamma + 1 < n$.
+
+Next, we note that the weak derivative is the same form as the original; just multiplied by a constant.
+Then applying the same process above, except starting with $\gamma + 1$, for the second weak derivative
+we end up with $\gamma + 2 < n$, with
+\begin{align*}
+|D^2 u(x)| = \frac{|\gamma (\gamma + 1)|}{|x|^{\gamma + 2}}
+\end{align*}
+
+Finally, we need to determine when the $L^p$ norms exist for all of these.
+Again, for any $0 < \epsilon < 1$, with $n - p (\gamma + 2) > 0$, we have
+\begin{align*}
+||u||_{L^p} = &\int_{B_1(0)} |x|^{-p \gamma} \dx
+  = \int_{r < \epsilon} C r^{n - 1 - p \gamma} \dr + \int_{\epsilon < r < 1} C r^{n - 1 - p \gamma} \dr\\
+  = &\limitto{\epsilon}{0} \int_{\epsilon < r < 1} C r^{n - 1 - p \gamma} \dr
+  = \limitto{\epsilon}{0} C r^{n - p \gamma} \big|_{r = \epsilon}^{1}
+  = C
+\end{align*}
+
+\begin{align*}
+||D u||_{L^p} = &\int_{B_1(0)} C |x|^{-p (\gamma + 1)} \dx
+  = \int_{r < \epsilon} C r^{n - 1 - p (\gamma + 1)} \dr + \int_{\epsilon < r < 1} C r^{n - 1 - p (\gamma + 1)} \dr\\
+  = &\limitto{\epsilon}{0} \int_{\epsilon < r < 1} C r^{n - 1 - p (\gamma + 1)} \dr
+  = \limitto{\epsilon}{0} C r^{n - p (\gamma + 1)} \big|_{r = \epsilon}^{1}
+  = C
+\end{align*}
+
+\begin{align*}
+||D^2 u||_{L^p} = &\int_{B_1(0)} C |x|^{-p (\gamma + 2)} \dx
+  = \int_{r < \epsilon} C r^{n - 1 - p (\gamma + 2)} \dr + \int_{\epsilon < r < 1} C r^{n - 1 - p (\gamma + 2)} \dr\\
+  = &\limitto{\epsilon}{0} \int_{\epsilon < r < 1} C r^{n - 1 - p (\gamma + 2)} \dr
+  = \limitto{\epsilon}{0} C r^{n - p (\gamma + 2)} \big|_{r = \epsilon}^{1}
+  = C
+\end{align*}
+Thus, this function is in $W^{2, p}(\domain)$ whenever $n - p (\gamma + 2) > 0$,
+since that is the most restrictive bound on it (as $p > 0$).

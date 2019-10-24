@@ -2,7 +2,32 @@
 \item
   If $n = 1$ and $u \in W^{1, 1}(\Omega)$ then show that $u \in L^\infty$ and $u$ is continuous.
 
+  First, WLOG, assume $\Omega = \reals$, since we can extend $u$ to $W^{1, 1}(\reals)$ if it's not.
+  Then by problem 7, we have $u \rightarrow 0$ as $x \rightarrow \pm \infty$.
+  $u \in W^{1, 1}(\Omega)$, so $D u$ exists, $\int_\Omega |u| \dx$, $\int_\Omega |D u| \dx$ are finite.
+  If we assume that $\Omega$ is $\reals$, we have $W^{1, p}(\Omega) = W^{1, p}_0(\Omega)$,
+  and we can assume it $u$ compact support.
+  Then, since we have $|u(x)| \leq \int_{-\infty}^x |u'| \dx \leq ||D u||_{L^1(\reals)}$, $u \in L^\infty(\reals)$.
+
+  Next, we need to show that $u$ is continuous.
+  Assume not, let $x_d$ be a point of discontinuity, $x_{min} = \inf(\Omega)$, $x_{max} = \sup(\Omega)$,
+  $u^+ = \limitto{x}{x_d, x > x_d} u(x)$, $u^- = \limitto{x}{x_d, x < x_d} u(x)$.
+  Then
+  \begin{align*}
+    \int_{\Omega} u(x) \phi'(x) \dx = &\int_{x_{min}}^{x_0} u(x) \phi'(x) \dx + \int_{x_0}^{x_{max}} u(x) \phi'(x) \dx\\
+                                   = &u^- \phi(x_d) - u(x_{min}) \phi(x_{min}) - \int_{x_{min}}^{x_0} D u(x) \phi(x) \dx\\
+                                      &+ u(x_{max}) \phi(x_{max}) - u^+ \phi(x_{d}) - \int_{x_{min}}^{x_0} D u(x) \phi(x) \dx\\
+                                   = &(u^- - u^+) \phi(x_d) + u(x_{max}) \phi(x_{max}) - u(x_{min}) \phi(x_{min})\\
+                                      &- \int_{x_{min}}^{x_0} D u(x) \phi(x) \dx - \int_{x_{min}}^{x_0} D u(x) \phi(x) \dx
+  \end{align*}
+  As we did in problem 9, let $\phi_m$ be a monotonic sequence with $\phi_m(x_d) \neq 0$
+  and $\phi_m(x) \rightarrow 0$ for $x \neq x_d$.
+  Then $\int_\Omega D u(x) \phi_m(x) \dx \rightarrow 0 \neq (u^- - u^+) \phi(x_d)$,
+  contradicting the claim that $u$ has a discontinuity.
+
 \item
   If $n > 1$, find an example of $u \in W^{1, n}(B_1)$ and $u \notin L^\infty$
+
+  $\log(\log(1 / |x| + 1)$ apparently works. So should $\frac{1}{|x|^{\frac{1}{n - 2}}}$?
 
 \end{enumerate}

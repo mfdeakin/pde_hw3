@@ -19,7 +19,7 @@ Find the first order and second order weak derivatives for the following functio
     0 & \text{otherwise}
   \end{cases}
   $$
-  The second order weak derivative doesn't exist.
+  The second order weak derivative doesn't exist, as it's not continuous (see problem 10a).
   We can prove this by working backwards and using the uniqueness of the weak derivative to prove our claim.
   We need to show that $\int_R Du \phi \dx = -\int_R u \phi' \dx$ for any $\phi \in C_C^\infty(R)$.
   To do so, we simply note that $\deriv{}{x}(1 + x) = 1$ and $\deriv{}{x}(1 - x) = -1$,
@@ -60,14 +60,5 @@ Find the first order and second order weak derivatives for the following functio
   \end{cases}
   $$
 
-  The second order weak derivative is
-  $$
-  D^2u(x) =
-  \begin{cases}
-    -\sin(x) & k \pi < x < (k + 1) \pi\\
-    \sin(x) & (k + 1) \pi < x < (k + 2) \pi
-  \end{cases}
-  $$
-  which is just $-|\sin(x)| = -u(x)$
-
+  The second order weak derivative does not exist, since $Du(x)$ is discontinuous.
 \end{enumerate}
