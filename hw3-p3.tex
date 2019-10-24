@@ -1,4 +1,4 @@
-Find the first order and second order weak derivatives for the following function $u: R \rightarrow R$, if exists:
+Find the first order and second order weak derivatives for the following function $u: \reals \rightarrow \reals$, if exists:
 
 \begin{enumerate}
 \item
@@ -21,7 +21,7 @@ Find the first order and second order weak derivatives for the following functio
   $$
   The second order weak derivative doesn't exist, as it's not continuous (see problem 10a).
   We can prove this by working backwards and using the uniqueness of the weak derivative to prove our claim.
-  We need to show that $\int_R Du \phi \dx = -\int_R u \phi' \dx$ for any $\phi \in C_C^\infty(R)$.
+  We need to show that $\int_\reals Du \phi \dx = -\int_\reals u \phi' \dx$ for any $\phi \in C_C^\infty(\reals)$.
   To do so, we simply note that $\deriv{}{x}(1 + x) = 1$ and $\deriv{}{x}(1 - x) = -1$,
   which is nice since we need these to be $0$ at the $-1$ and $1$, respectively, while having the same value at $0$.
   Then integrating by parts results in:
@@ -36,6 +36,7 @@ Find the first order and second order weak derivatives for the following functio
   \end{align*}
 
   Thus, $Du$ is the weak derivative of $u$.
+  The second order weak derivative does not exist, since $Du(x)$ is discontinuous at $x = 0$ and $x = \pm 1$; see problem 10a.
 
 \item
   $$
@@ -46,8 +47,8 @@ Find the first order and second order weak derivatives for the following functio
   $$
   u(x) =
   \begin{cases}
-    \sin(x) & k \pi < x < (k + 1) \pi\\
-    -\sin(x) & (k + 1) \pi < x < (k + 2) \pi
+    \sin(x) & 2 k \pi < x < (2 k + 1) \pi\\
+    -\sin(x) & (2 k + 1) \pi < x < (2 k + 2) \pi
   \end{cases}
   $$
 
@@ -55,10 +56,27 @@ Find the first order and second order weak derivatives for the following functio
   $$
   Du(x) =
   \begin{cases}
-    \cos(x) & k \pi < x < (k + 1) \pi\\
-    -\cos(x) & (k + 1) \pi < x < (k + 2) \pi
+    \cos(x) & 2 k \pi < x < (2 k + 1) \pi\\
+    -\cos(x) & (2 k + 1) \pi < x < (2 k + 2) \pi
   \end{cases}
   $$
 
-  The second order weak derivative does not exist, since $Du(x)$ is discontinuous.
+  We check by integrating by parts over all of the subintervals:
+  \begin{align*}
+    \int_\reals |\sin(x)| \phi'(x) \dx
+      = &\sum_{k=-\infty}^\infty \int_{2 k \pi}^{(2 k + 1) \pi} \sin(x) \phi'(x) \dx
+         + \int_{(2 k + 1) \pi}^{(2 k + 2) \pi} -\sin(x) \phi'(x) \dx\\
+      = &\sum_{k=-\infty}^\infty \sin((2 k + 1) \pi) \phi((2 k + 1) \pi) - \sin(2 k \pi) \phi(2 k \pi)\\
+         &- \int_{2 k \pi}^{(2 k + 1) \pi} \cos(x) \phi(x) \dx\\
+         &- \sin((2 k + 2) \pi) \phi((2 k + 2) \pi) + \sin((2 k + 1) \pi) \phi((2 k + 1) \pi)\\
+         &+ \int_{(2 k + 1) \pi}^{(2 k + 2) \pi} \cos(x) \phi(x) \dx\\
+      = &\sum_{k=-\infty}^\infty -\int_{2 k \pi}^{(2 k + 1) \pi} \cos(x) \phi(x) \dx
+          + \int_{(2 k + 1) \pi}^{(2 k + 2) \pi} \cos(x) \phi(x) \dx\\
+      = &\sum_{k=-\infty}^\infty -\int_{2 k \pi}^{(2 k + 1) \pi} \cos(x) \phi(x) \dx
+          - \int_{(2 k + 1) \pi}^{(2 k + 2) \pi} -\cos(x) \phi(x) \dx\\
+      = &\int_\reals Du \phi(x) \dx
+  \end{align*}
+  proving our claim.
+
+  $Du(x)$ is discontinuous at every $x = 2 k \pi$, so the second order weak derivative does not exist.
 \end{enumerate}
